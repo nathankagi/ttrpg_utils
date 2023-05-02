@@ -8,8 +8,6 @@ async function getCharacter(charId: string) {
 
 export default async function CharacterPage({ params }: any) {
     const char = await getCharacter(params.id);
-    console.log(char);
-
     return (
         <div>
             <div>character/{char.id}</div>

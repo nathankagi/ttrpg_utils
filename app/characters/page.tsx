@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import PocketBase from 'pocketbase';
+import CreateCharacter from './CreateCharacter';
 
 export const dynamic = 'auto',
     dynamicParams = true,
@@ -26,6 +27,7 @@ export default async function TestCharacterPage() {
             <div>{characters?.map((char) => {
                 return <Card key={char.id} name={char.name} description={char.description} props={char} />;
             })}</div>
+            <CreateCharacter />
         </div>
     )
 }
