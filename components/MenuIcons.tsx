@@ -15,11 +15,11 @@ export const SideBarIcon = ({
   );
 };
 
-export const NavBarIcon = ({ text, to }) => {
+export const NavBarIcon = ({ ...props }) => {
   return (
     <>
-      <Link className="navbar-icon font-sans" href={to ? to : ''}>
-        {text}
+      <Link className="navbar-icon font-sans" href={props.to ? props.to : ''}>
+        {props.text ? props.text : props.icon}
       </Link>
     </>
   );

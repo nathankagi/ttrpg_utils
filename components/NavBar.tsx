@@ -1,11 +1,7 @@
-import Menu from "./Menu";
-import { NavBarIcon } from "./MenuIcons";
-
-const NavBar = ({ pages }) => {
+const NavBar = (props) => {
   return (
-    <nav className="nav">
-      <NavBarIcon text="Tools" to={undefined}></NavBarIcon>
-      <Menu />
+    <nav className="navbar">
+      <div className="navbar-nav">{props.children}</div>
     </nav>
   );
 };

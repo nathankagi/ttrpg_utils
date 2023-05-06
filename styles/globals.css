@@ -6,7 +6,7 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai+Looped:wght@300;400;500&display=swap');
 
 body {
-  @apply bg-palette5;
+  @apply bg-palette1;
   font-family: 'Arial', monospace;
   scroll-behavior: smooth;
 }
@@ -17,21 +17,25 @@ body {
   }
 
   .sidebar-icon {
-    @apply relative flex items-center justify-center h-10 w-10 mt-2 mb-2 mx-auto shadow-lg bg-white text-slate-800 hover:bg-slate-800 hover:text-white
+    @apply relative flex items-center justify-center h-10 w-10 mt-2 mb-2 mx-auto shadow-lg bg-palette3 text-slate-800 hover:bg-slate-800 hover:text-palette3
     rounded-3xl hover:rounded-xl transition-all duration-300 ease-in;
   }
 
   .sidebar-tooltip {
-    @apply absolute w-auto p-2 m-2 min-w-max left-14 rounded-md shadow-md bg-slate-800 text-white text-xs font-bold transition-all duration-300 scale-0 origin-left
+    @apply absolute w-auto p-2 m-2 min-w-max left-14 rounded-md shadow-md bg-slate-800 text-palette3 text-xs font-bold transition-all duration-300 scale-0 origin-left
+  }
+
+  .navbar {
+    @apply top-0 w-screen h-16 bg-palette5 shadow-lg;
+  }
+
+  .navbar-nav {
+    @apply flex flex-row justify-center p-1
   }
 
   .navbar-icon {
-    @apply relative flex top-0 right-0 items-center justify-center p-2 m-2 w-24 mt-2 mb-2 border-2 border-slate-800 text-base font-bold  text-slate-100 
-    rounded-xl  hover:text-red-600 transition-all duration-300 ease-in;
-  }
-
-  .nav {
-    @apply relative top-0 w-screen h-16 p-2 flex flex-row justify-center bg-palette1;
+    @apply relative flex top-0 right-0 items-center justify-center p-2 m-2 w-24 mt-2 mb-2 text-base font-bold  text-palette3 
+    rounded-xl hover:text-palette4 transition-all duration-300 ease-in;
   }
 
   .body {

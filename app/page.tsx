@@ -4,8 +4,7 @@ import SideBar from "../components/SideBar";
 export default function HomePage() {
     return (
         <>
-            <NavBar pages={undefined} />
-            <SideBar />
+            Home
         </>
     )
 }
