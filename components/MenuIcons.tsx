@@ -1,4 +1,7 @@
+'use client';
+
 import Link from 'next/link';
+import { useState } from 'react';
 
 export const SideBarIcon = ({
   icon,
@@ -16,6 +19,7 @@ export const SideBarIcon = ({
 };
 
 export const NavBarIcon = ({ ...props }) => {
+  const [open, setOpen] = useState();
   return (
     <>
       <Link className="navbar-icon font-sans" href={props.to ? props.to : ''}>

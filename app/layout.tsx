@@ -3,6 +3,9 @@ import '../styles/globals.css'
 import NavBar from "../components/NavBar";
 import SideBar from "../components/SideBar";
 import { NavBarIcon } from '../components/MenuIcons';
+import { FaBars } from "react-icons/fa";
+
+import React, { useState } from 'react';
 
 export const metadata = {
   title: 'Next.js',
@@ -18,7 +21,13 @@ export default function RootLayout({
     <>
       <NavBar>
         <NavBarIcon text="Home" to={'/'}></NavBarIcon>
-        <NavBarIcon text="Tools" to={undefined}></NavBarIcon></NavBar>
+        <NavBarIcon text="Tools" to={undefined}></NavBarIcon>
+        <NavBarIcon icon={<FaBars />} to={undefined}>
+          {
+            // dropdown state here
+          }
+        </NavBarIcon>
+      </NavBar>
       <SideBar />
       <body>{children}</body>
     </>
