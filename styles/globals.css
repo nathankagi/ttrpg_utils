@@ -6,7 +6,7 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai+Looped:wght@300;400;500&display=swap');
 
 body {
-  @apply bg-slate-800;
+  @apply bg-slate-300;
   font-family: 'Arial', monospace;
   scroll-behavior: smooth;
 }
@@ -26,12 +26,12 @@ body {
   }
 
   .navbar-icon {
-    @apply relative flex top-0 right-0 items-center justify-center p-2 m-2 w-24 mt-2 mb-2 border-2 border-slate-100 text-sm font-bold  text-slate-800 
-    rounded-xl  hover:border-slate-800 transition-all duration-300 ease-in;
+    @apply relative flex top-0 right-0 items-center justify-center p-2 m-2 w-24 mt-2 mb-2 border-2 border-slate-800 text-base font-bold  text-slate-100 
+    rounded-xl  hover:text-red-600 transition-all duration-300 ease-in;
   }
 
   .nav {
-    @apply relative top-0 right-0 w-screen h-16 p-1 flex flex-row justify-end bg-slate-100;
+    @apply relative top-0 w-screen h-16 p-2 flex flex-row justify-center bg-slate-800;
   }
 
   .body {

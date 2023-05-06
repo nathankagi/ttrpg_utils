@@ -1,7 +1,7 @@
 import { FaGithub, FaTwitter, FaLinkedinIn, FaEnvelope } from "react-icons/fa";
 import { SideBarIcon } from "./MenuIcons";
 
-const GlobalSideBar = () => {
+const SideBar = () => {
   return (
     <>
       <div className="sidebar">
@@ -25,4 +25,4 @@ const GlobalSideBar = () => {
   );
 };
 
-export default GlobalSideBar;
+export default SideBar;

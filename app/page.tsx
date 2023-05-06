@@ -1,11 +1,11 @@
-import GlobalNavBar from "../components/GlobalNavBar";
-import GlobalSideBar from "../components/GlobalSideBar";
+import NavBar from "../components/NavBar";
+import SideBar from "../components/SideBar";
 
 export default function HomePage() {
     return (
         <>
-            <GlobalNavBar pages={undefined} />
-            <GlobalSideBar />
+            <NavBar pages={undefined} />
+            <SideBar />
         </>
     )
 }

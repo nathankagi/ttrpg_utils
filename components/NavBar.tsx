@@ -1,11 +1,13 @@
+import Menu from "./Menu";
 import { NavBarIcon } from "./MenuIcons";
 
-const GlobalNavBar = ({ pages }) => {
+const NavBar = ({ pages }) => {
   return (
     <nav className="nav">
       <NavBarIcon text="Tools" to={undefined}></NavBarIcon>
+      <Menu />
     </nav>
   );
 };
 
-export default GlobalNavBar;
+export default NavBar;
