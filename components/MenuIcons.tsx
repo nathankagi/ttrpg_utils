@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import Link from 'next/link';
 
 export const SideBarIcon = ({
   icon,
@@ -18,7 +18,7 @@ export const SideBarIcon = ({
 export const NavBarIcon = ({ text, to }) => {
   return (
     <>
-      <Link className="navbar-icon font-sans" to={to}>
+      <Link className="navbar-icon font-sans" href={to ? to : ''}>
         {text}
       </Link>
     </>

@@ -1,5 +1,11 @@
+import GlobalNavBar from "../components/GlobalNavBar";
+import GlobalSideBar from "../components/GlobalSideBar";
+
 export default function HomePage() {
     return (
-        <>HOME</>
+        <>
+            <GlobalNavBar pages={undefined} />
+            <GlobalSideBar />
+        </>
     )
 }

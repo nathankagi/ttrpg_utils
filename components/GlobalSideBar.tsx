@@ -1,19 +1,14 @@
 import { FaGithub, FaTwitter, FaLinkedinIn, FaEnvelope } from "react-icons/fa";
 import { SideBarIcon } from "./MenuIcons";
 
-const SideBar = () => {
+const GlobalSideBar = () => {
   return (
     <>
       <div className="sidebar">
         <SideBarIcon
           icon={<FaGithub />}
           text="Github"
-          link="https://github.com/nathankagi"
-        ></SideBarIcon>
-        <SideBarIcon
-          icon={<FaLinkedinIn />}
-          text="LinkedIn"
-          link="https://www.linkedin.com/in/nathankagi/"
+          link="https://github.com/nathankagi/ttrpg_utils"
         ></SideBarIcon>
         <SideBarIcon
           icon={<FaTwitter />}
@@ -22,12 +17,12 @@ const SideBar = () => {
         ></SideBarIcon>
         <SideBarIcon
           icon={<FaEnvelope />}
-          link="npkagi@outlook.com"
-          text="npkagi@outlook.com"
+          link="x@y.com"
+          text="x@y.com"
         ></SideBarIcon>
       </div>
     </>
   );
 };
 
-export default SideBar;
+export default GlobalSideBar;
