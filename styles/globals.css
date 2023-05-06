@@ -6,7 +6,7 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai+Looped:wght@300;400;500&display=swap');
 
 body {
-  @apply bg-slate-300;
+  @apply bg-palette5;
   font-family: 'Arial', monospace;
   scroll-behavior: smooth;
 }
@@ -31,7 +31,7 @@ body {
   }
 
   .nav {
-    @apply relative top-0 w-screen h-16 p-2 flex flex-row justify-center bg-slate-800;
+    @apply relative top-0 w-screen h-16 p-2 flex flex-row justify-center bg-palette1;
   }
 
   .body {
