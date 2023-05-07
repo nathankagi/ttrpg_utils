@@ -2,12 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai+Looped:wght@300;400;500&display=swap");
 
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai+Looped:wght@300;400;500&display=swap');
+:root {
+    --transition-speed: 1000ms
+}
 
 body {
   @apply bg-palette1;
-  font-family: 'Arial', monospace;
+  font-family: "Arial", monospace;
   scroll-behavior: smooth;
 }
 
@@ -22,7 +25,7 @@ body {
   }
 
   .sidebar-tooltip {
-    @apply absolute w-auto p-2 m-2 min-w-max left-14 rounded-md shadow-md bg-palette4 text-palette3 text-xs font-bold transition-all duration-300 scale-0 origin-left
+    @apply absolute w-auto p-2 m-2 min-w-max left-14 rounded-md shadow-md bg-palette4 text-palette3 text-xs font-bold transition-all duration-300 scale-0 origin-left;
   }
 
   .navbar {
@@ -30,7 +33,7 @@ body {
   }
 
   .navbar-nav {
-    @apply flex flex-row justify-end p-1
+    @apply flex flex-row justify-end p-1;
   }
 
   .navbar-icon {
@@ -39,15 +42,53 @@ body {
   }
 
   .body {
-    @apply flex justify-center flex-row items-center grow mx-auto w-2/3 p-10 m-10 mt-20
+    @apply flex justify-center flex-row items-center grow mx-auto w-2/3 p-10 m-10 mt-20;
   }
 
   /* dropdown menu */
   .dropdown {
-    @apply absolute top-16 w-40 bg-slate-800 rounded-md p-2 overflow-hidden shadow-lg
+    @apply absolute top-16 w-48 bg-slate-800 rounded-md p-2 overflow-hidden shadow-lg;
   }
 
   .menu-item {
-    @apply flex align-middle rounded-md h-10 p-2 hover:bg-slate-600
+    @apply flex align-middle rounded-md h-10 p-2 hover:bg-slate-600;
+  }
+
+  .menu-primary-enter {
+    position: absolute;
+    transform: translateX(-110%);
+  }
+
+  .menu-primary-enter-active {
+    transform: translateX(0%);
+    transition: all var(--transition-speed) ease;
+  }
+
+  .menu-primary-exit {
+    position: absolute;
+  }
+
+  .menu-primary-exit-active {
+    transform: translateX(-110%);
+    transition: all var(--transition-speed) ease;
+  }
+
+  .menu-secondary-enter {
+    position: absolute;
+    transform: translateX(110%);
+  }
+
+  .menu-secondary-enter-active {
+    transform: translateX(0%);
+    transition: all var(--transition-speed) ease;
+  }
+
+  .menu-secondary-exit {
+    position: absolute;
+  }
+
+  .menu-secondary-exit-active {
+    transform: translateX(110%);
+    transition: all var(--transition-speed) ease;
   }
 }
