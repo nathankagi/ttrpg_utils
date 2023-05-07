@@ -41,4 +41,13 @@ body {
   .body {
     @apply flex justify-center flex-row items-center grow mx-auto w-2/3 p-10 m-10 mt-20
   }
+
+  /* dropdown menu */
+  .dropdown {
+    @apply absolute top-16 w-40 bg-slate-800 rounded-md p-2 overflow-hidden shadow-lg
+  }
+
+  .menu-item {
+    @apply flex align-middle rounded-md h-10 p-2 hover:bg-slate-600
+  }
 }
