@@ -22,81 +22,129 @@ export const SideBarIcon = ({
 
 export const NavBarIcon = ({ ...props }) => {
     const [open, setOpen] = useState(false);
+
+    const handleMouseEnter = () => {
+        setOpen(true);
+    };
+
+    const handleMouseLeave = () => {
+        setOpen(false);
+    };
+
     return (
-        <>
+        <div
+            onMouseLeave={handleMouseLeave}>
             <Link
                 className="navbar-icon font-sans"
                 href={props.to ? props.to : ""}
-                onClick={() => setOpen(!open)}
+                onMouseEnter={handleMouseEnter}
             >
                 {props.text ? props.text : props.icon}
             </Link>
             {open && props.children}
-        </>
+        </div>
     );
 };
 
-export const DropdownMenu = (props) => {
-    const nodeRef = React.useRef(null)
-    const [activeMenu, setActiveMenu] = useState('main');
+// consolidate dropdown features into a generic dropdown component
+export const ToolsDropdown = (props) => {
+    const nodeRef = React.useRef(null);
+    const [activeMenu, setActiveMenu] = useState("main");
 
     const DropdownItem = (props) => {
         return (
-            <Link href="#" className="menu-item" onClick={() => props.goToMenu && setActiveMenu(props.goToMenu)}>
+            <Link
+                href={props.href ? props.href : ""}
+                className="menu-item"
+                onClick={() => props.goToMenu && setActiveMenu(props.goToMenu)}
+            >
                 {props.children}
             </Link>
         );
-    }
+    };
 
-    return <div className="dropdown">
-        <CSSTransition
-            in={activeMenu === "main"}
-            unmountOnExit
-            timeout={1}
-            classNames="menu-primary"
-            nodeRef={nodeRef}
-        >
-            <div ref={nodeRef}>
-                <div className="menu">
-                    <DropdownItem goToMenu="user">User</DropdownItem>
-                    <DropdownItem goToMenu="settings">Settings</DropdownItem>
-                    <DropdownItem>Test</DropdownItem>
-                </div>
+    return (
+        <div className="dropdown">
+            <div className="menu">
+                <DropdownItem href="/tracker">Tracker</DropdownItem>
+                <DropdownItem href="/characters">Characters</DropdownItem>
+                <DropdownItem href="#">Test</DropdownItem>
             </div>
-        </CSSTransition >
+        </div >
+    );
+};
 
-        <CSSTransition
-            in={activeMenu === "user"}
-            unmountOnExit
-            timeout={1}
-            classNames="menu-secondary"
-            nodeRef={nodeRef}
-        >
-            <div ref={nodeRef}>
-                <div className="menu">
-                    <DropdownItem goToMenu="main"><FaArrowAltCircleLeft /></DropdownItem>
-                    <DropdownItem>Test</DropdownItem>
-                    <DropdownItem>Test</DropdownItem>
-                    <DropdownItem>Test</DropdownItem>
-                </div>
-            </div>
-        </CSSTransition>
+export const SettingsDropdown = (props) => {
+    const nodeRef = React.useRef(null);
+    const [activeMenu, setActiveMenu] = useState("main");
 
-        <CSSTransition
-            in={activeMenu === "settings"}
-            unmountOnExit
-            timeout={1}
-            classNames="menu-secondary"
-            nodeRef={nodeRef}
-        >
-            <div ref={nodeRef}>
-                <div className="menu">
-                    <DropdownItem goToMenu="main"><FaArrowAltCircleLeft /></DropdownItem>
-                    <DropdownItem>User</DropdownItem>
-                    <DropdownItem>Application Settings</DropdownItem>
-                    <DropdownItem>Privacy</DropdownItem>
+    const DropdownItem = (props) => {
+        return (
+            <Link
+                href="#"
+                className="menu-item"
+                onClick={() => props.goToMenu && setActiveMenu(props.goToMenu)}
+            >
+                {props.children}
+            </Link>
+        );
+    };
+
+    return (
+        <div className="dropdown">
+            <CSSTransition
+                in={activeMenu === "main"}
+                unmountOnExit
+                timeout={1}
+                classNames="menu-primary"
+                nodeRef={nodeRef}
+            >
+                <div ref={nodeRef}>
+                    <div className="menu">
+                        <DropdownItem goToMenu="user">User</DropdownItem>
+                        <DropdownItem goToMenu="settings">Settings</DropdownItem>
+                        <DropdownItem>Test</DropdownItem>
+                    </div>
                 </div>
-            </div>
-        </CSSTransition>
-    </div >;
+            </CSSTransition>
+
+            <CSSTransition
+                in={activeMenu === "user"}
+                unmountOnExit
+                timeout={1}
+                classNames="menu-secondary"
+                nodeRef={nodeRef}
+            >
+                <div ref={nodeRef}>
+                    <div className="menu">
+                        <DropdownItem goToMenu="main">
+                            <FaArrowAltCircleLeft />
+                        </DropdownItem>
+                        <DropdownItem>Test</DropdownItem>
+                        <DropdownItem>Test</DropdownItem>
+                        <DropdownItem>Test</DropdownItem>
+                    </div>
+                </div>
+            </CSSTransition>
+
+            <CSSTransition
+                in={activeMenu === "settings"}
+                unmountOnExit
+                timeout={1}
+                classNames="menu-secondary"
+                nodeRef={nodeRef}
+            >
+                <div ref={nodeRef}>
+                    <div className="menu">
+                        <DropdownItem goToMenu="main">
+                            <FaArrowAltCircleLeft />
+                        </DropdownItem>
+                        <DropdownItem>User</DropdownItem>
+                        <DropdownItem>Application Settings</DropdownItem>
+                        <DropdownItem>Privacy</DropdownItem>
+                    </div>
+                </div>
+            </CSSTransition>
+        </div>
+    );
 };

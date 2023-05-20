@@ -37,7 +37,7 @@ body {
   }
 
   .navbar-icon {
-    @apply relative flex right-0 items-center justify-center p-2 m-2 w-24 mt-2 mb-2 text-base border-transparent rounded-lg border-2 font-bold text-black bg-palette1 hover:border-black transition-all duration-300 ease-in-out;
+    @apply relative flex right-0 items-center justify-center p-2 m-2 w-12 h-12 mt-2 mb-2 text-lg border-transparent rounded-lg border-2 font-bold text-black bg-palette1 hover:border-black transition-all duration-300 ease-in-out;
   }
 
   .body {
@@ -46,8 +46,8 @@ body {
 
   /* dropdown menu */
   .dropdown {
-    @apply absolute top-[65px] w-[200px] p-4 bg-white border-2 border-black rounded-md shadow-lg;
-    transform: translateX(-5%);
+    @apply absolute top-[70px] w-[200px] p-4 bg-white border-2 border-black rounded-md shadow-lg;
+    transform: translateX(-70%);
   }
 
   .menu-item {

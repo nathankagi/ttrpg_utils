@@ -1,15 +1,16 @@
-import { DropdownMenu, NavBarIcon } from "./MenuIcons";
-import { FaBars } from "react-icons/fa";
+import { SettingsDropdown, NavBarIcon, ToolsDropdown } from "./MenuIcons";
+import { FaBars, FaHome, FaTools } from "react-icons/fa";
 
 const NavBar = (props) => {
     return (
         <nav className="navbar">
             <div className="navbar-nav">
-                <NavBarIcon text="Home" to={"/"}></NavBarIcon>
-                <NavBarIcon text="Tools" to={undefined}>
+                <NavBarIcon icon={<FaHome />} to={"/"}></NavBarIcon>
+                <NavBarIcon icon={<FaTools />} to={undefined}>
+                    <ToolsDropdown />
                 </NavBarIcon>
                 <NavBarIcon icon={<FaBars />} to={undefined}>
-                    <DropdownMenu />
+                    <SettingsDropdown />
                 </NavBarIcon></div>
         </nav>
     );
