@@ -66,8 +66,8 @@ export const ToolsDropdown = (props) => {
     return (
         <div className="dropdown">
             <div className="menu">
-                <DropdownItem href="/tracker">Tracker</DropdownItem>
-                <DropdownItem href="/characters">Characters</DropdownItem>
+                <DropdownItem href="./round_tracker">Tracker</DropdownItem>
+                <DropdownItem href="./characters">Characters</DropdownItem>
                 <DropdownItem href="#">Test</DropdownItem>
             </div>
         </div >
