@@ -5,7 +5,7 @@
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai+Looped:wght@300;400;500&display=swap");
 
 :root {
-    --transition-speed: 1000ms
+    --speed: 500ms; 
 }
 
 body {
@@ -47,48 +47,74 @@ body {
 
   /* dropdown menu */
   .dropdown {
-    @apply absolute top-16 w-48 bg-slate-800 rounded-md p-2 overflow-hidden shadow-lg;
+    @apply absolute top-[58px] w-[200px] p-4 bg-slate-800 rounded-md shadow-lg;
+    transform: translateX(-5%);
   }
 
   .menu-item {
     @apply flex align-middle rounded-md h-10 p-2 hover:bg-slate-600;
   }
+}
 
-  .menu-primary-enter {
+/* CSSTransition classes  */
+
+.menu-primary-enter {
     position: absolute;
     transform: translateX(-110%);
   }
-
   .menu-primary-enter-active {
     transform: translateX(0%);
-    transition: all var(--transition-speed) ease;
+    
   }
-
   .menu-primary-exit {
     position: absolute;
   }
-
   .menu-primary-exit-active {
-    transform: translateX(-110%);
-    transition: all var(--transition-speed) ease;
   }
 
+
+  .menu-secondary-enter {
+    position: absolute;
+  }
+  .menu-secondary-enter-active {
+  }
+  .menu-secondary-exit {
+    position: absolute;
+  }
+  .menu-secondary-exit-active {
+  } 
+
+/* .menu-primary-enter {
+    position: absolute;
+    transform: translateX(-110%);
+  }
+  .menu-primary-enter-active {
+    transform: translateX(0%);
+    transition: all var(--speed) ease;
+  }
+  .menu-primary-exit {
+    position: absolute;
+    transform: translateX(-110%);
+  }
+  .menu-primary-exit-active {
+    transform: translateX(-110%);
+    transition: all var(--speed) ease;
+  }
+  
+  
   .menu-secondary-enter {
     position: absolute;
     transform: translateX(110%);
   }
-
   .menu-secondary-enter-active {
     transform: translateX(0%);
-    transition: all var(--transition-speed) ease;
+    transition: all var(--speed) ease;
   }
-
   .menu-secondary-exit {
     position: absolute;
+    transform: translateX(0%);
   }
-
   .menu-secondary-exit-active {
     transform: translateX(110%);
-    transition: all var(--transition-speed) ease;
-  }
-}
+    transition: all var(--speed) ease;
+  } */

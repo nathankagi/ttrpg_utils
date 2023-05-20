@@ -6,11 +6,9 @@ const NavBar = (props) => {
         <nav className="navbar">
             <div className="navbar-nav">
                 <NavBarIcon text="Home" to={"/"}></NavBarIcon>
-                <NavBarIcon text="Tools" to={undefined}></NavBarIcon>
+                <NavBarIcon text="Tools" to={undefined}>
+                </NavBarIcon>
                 <NavBarIcon icon={<FaBars />} to={undefined}>
-                    {
-                        // dropdown state here
-                    }
                     <DropdownMenu />
                 </NavBarIcon></div>
         </nav>

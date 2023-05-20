@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import React, { useState } from "react";
-import { CSSTransition } from "react-transition-group";
 import { FaArrowAltCircleLeft } from "react-icons/fa";
+import { CSSTransition } from "react-transition-group";
 
 export const SideBarIcon = ({
     icon,
@@ -36,59 +36,66 @@ export const NavBarIcon = ({ ...props }) => {
     );
 };
 
-export const DropdownMenu = () => {
+export const DropdownMenu = (props) => {
     const nodeRef = React.useRef(null)
     const [activeMenu, setActiveMenu] = useState('main');
 
-    function DropdownItem(props) {
+    const DropdownItem = (props) => {
         return (
             <Link href="#" className="menu-item" onClick={() => props.goToMenu && setActiveMenu(props.goToMenu)}>
                 {props.children}
             </Link>
         );
     }
+
     return <div className="dropdown">
         <CSSTransition
             in={activeMenu === "main"}
             unmountOnExit
-            timeout={500}
+            timeout={1}
             classNames="menu-primary"
             nodeRef={nodeRef}
         >
-            <div className="menu">
-                <DropdownItem goToMenu="user">User</DropdownItem>
-                <DropdownItem goToMenu="settings">Settings</DropdownItem>
-                <DropdownItem>Test</DropdownItem>
+            <div ref={nodeRef}>
+                <div className="menu">
+                    <DropdownItem goToMenu="user">User</DropdownItem>
+                    <DropdownItem goToMenu="settings">Settings</DropdownItem>
+                    <DropdownItem>Test</DropdownItem>
+                </div>
             </div>
         </CSSTransition >
 
         <CSSTransition
             in={activeMenu === "user"}
             unmountOnExit
-            timeout={500}
+            timeout={1}
             classNames="menu-secondary"
             nodeRef={nodeRef}
         >
-            <div className="menu">
-                <DropdownItem goToMenu="main"><FaArrowAltCircleLeft /></DropdownItem>
-                <DropdownItem>Test</DropdownItem>
-                <DropdownItem>Test</DropdownItem>
-                <DropdownItem>Test</DropdownItem>
+            <div ref={nodeRef}>
+                <div className="menu">
+                    <DropdownItem goToMenu="main"><FaArrowAltCircleLeft /></DropdownItem>
+                    <DropdownItem>Test</DropdownItem>
+                    <DropdownItem>Test</DropdownItem>
+                    <DropdownItem>Test</DropdownItem>
+                </div>
             </div>
         </CSSTransition>
 
         <CSSTransition
             in={activeMenu === "settings"}
             unmountOnExit
-            timeout={500}
+            timeout={1}
             classNames="menu-secondary"
             nodeRef={nodeRef}
         >
-            <div className="menu">
-                <DropdownItem goToMenu="main"><FaArrowAltCircleLeft /></DropdownItem>
-                <DropdownItem>User</DropdownItem>
-                <DropdownItem>Application Settings</DropdownItem>
-                <DropdownItem>Privacy</DropdownItem>
+            <div ref={nodeRef}>
+                <div className="menu">
+                    <DropdownItem goToMenu="main"><FaArrowAltCircleLeft /></DropdownItem>
+                    <DropdownItem>User</DropdownItem>
+                    <DropdownItem>Application Settings</DropdownItem>
+                    <DropdownItem>Privacy</DropdownItem>
+                </div>
             </div>
         </CSSTransition>
     </div >;
