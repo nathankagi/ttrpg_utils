@@ -19,7 +19,6 @@ export default function RootLayout({
         <html lang="en">
             <body>
                 <NavBar />
-                <SideBar />
                 <div className="page">
                     {children}
                 </div>
