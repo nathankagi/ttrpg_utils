@@ -1,17 +1,19 @@
-import { NavBarIcon } from "./MenuIcons";
-import { Outlet, Link } from "react-router-dom";
+import { SettingsDropdown, NavBarIcon, ToolsDropdown } from "./MenuIcons";
+import { FaBars, FaHome, FaTools } from "react-icons/fa";
 
-const NavBar = ({ pages }) => {
-  return (
-    <nav className="nav">
-      <NavBarIcon text="About" to="about"></NavBarIcon>
-      <NavBarIcon text="Experience" to="experience"></NavBarIcon>
-      <NavBarIcon text="Projects" to="projects"></NavBarIcon>
-      <NavBarIcon text="Blog" to="blog"></NavBarIcon>
-      <NavBarIcon text="Resume"></NavBarIcon>
-      <Outlet></Outlet>
-    </nav>
-  );
+const NavBar = (props) => {
+    return (
+        <nav className="navbar">
+            <div className="navbar-nav">
+                <NavBarIcon icon={<FaHome />} to={"/"}></NavBarIcon>
+                <NavBarIcon icon={<FaTools />} to={undefined}>
+                    <ToolsDropdown />
+                </NavBarIcon>
+                <NavBarIcon icon={<FaBars />} to={undefined}>
+                    <SettingsDropdown />
+                </NavBarIcon></div>
+        </nav>
+    );
 };
 
 export default NavBar;
