@@ -58,6 +58,14 @@ body {
   .menu-item {
     @apply flex align-middle rounded-md h-10 p-2 hover:bg-gray-200;
   }
+
+  .tracker_item {
+    @apply flex align-middle rounded-md p-2 m-5 h-16 bg-white border-2 border-black text-black hover:bg-gray-200 transition-all
+  }
+
+  .active_tracker_item {
+    @apply h-24 bg-red-100
+  }
 }
 
 /* CSSTransition classes  */
@@ -85,38 +93,3 @@ body {
 }
 .menu-secondary-exit-active {
 }
-
-/* .menu-primary-enter {
-    position: absolute;
-    transform: translateX(-110%);
-  }
-  .menu-primary-enter-active {
-    transform: translateX(0%);
-    transition: all var(--speed) ease;
-  }
-  .menu-primary-exit {
-    position: absolute;
-    transform: translateX(-110%);
-  }
-  .menu-primary-exit-active {
-    transform: translateX(-110%);
-    transition: all var(--speed) ease;
-  }
-  
-  
-  .menu-secondary-enter {
-    position: absolute;
-    transform: translateX(110%);
-  }
-  .menu-secondary-enter-active {
-    transform: translateX(0%);
-    transition: all var(--speed) ease;
-  }
-  .menu-secondary-exit {
-    position: absolute;
-    transform: translateX(0%);
-  }
-  .menu-secondary-exit-active {
-    transform: translateX(110%);
-    transition: all var(--speed) ease;
-  } */
