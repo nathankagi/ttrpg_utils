@@ -23,7 +23,8 @@ const Tracker = () => {
 const RoundTracker = ({ elements, ...props }) => {
   const [active, setActive] = useState({ id: 0, name: "active" });
   const [items, setItems] = useState(elements);
-  const [turns, setTurns] = useState(0);
+  const [nextItems, setNextItems] = useState(elements);
+  const [rounds, setRounds] = useState(0);
 
   const handleReset = () => {
     // set to default state
@@ -35,7 +36,7 @@ const RoundTracker = ({ elements, ...props }) => {
       })
     );
     setActive(items.at(0));
-    setTurns(0);
+    setRounds(0);
   };
 
   const arrayRotate = (arr, reverse) => {
@@ -46,13 +47,27 @@ const RoundTracker = ({ elements, ...props }) => {
 
   useEffect(() => {
     setActive(items.at(0));
-  }, [elements]);
+    setRounds(0);
+  }, []);
+
+  useEffect(() => {
+    setActive(items.at(0));
+    if (items.length === 0) {
+      setItems(nextItems);
+      setRounds(rounds + 1);
+    }
+  }, [items]);
 
   const handleNextItem = () => {
     // change state of round tracker
-    setItems(arrayRotate(items, false));
-    setActive(items.at(0));
-    setTurns(turns + 1);
+    // setItems(arrayRotate(items, false));
+    setItems(items.slice(1));
+  };
+
+  const handleDelayItem = () => {
+    const temp_items = items.slice(1);
+    temp_items.push(active);
+    setItems(temp_items);
   };
 
   return (
@@ -66,7 +81,7 @@ const RoundTracker = ({ elements, ...props }) => {
           <div className="rounded-md w-24 p-2 ml-0 m-5 h-24 bg-white border-2 border-b-4 border-black text-black justify-center text-center items-center">
             <div>ROUND</div>
             <div className="w-16 h-16 text-lg justify-center text-center items-center">
-              {Math.floor(turns / items.length)}
+              {rounds}
             </div>
           </div>
         </div>
@@ -77,6 +92,12 @@ const RoundTracker = ({ elements, ...props }) => {
           >
             NEXT TURN
           </div>
+          <div
+            onClick={handleDelayItem}
+            className="w-36 h-8 mx-2 bg-white border-2 border-transparent rounded-lg flex justify-center text-center items-center hover:border-black transition-all duration-300 ease-in-out"
+          >
+            DELAY
+          </div>
           <div className="flex-grow"></div>
           <div
             onClick={handleReset}
@@ -86,13 +107,26 @@ const RoundTracker = ({ elements, ...props }) => {
           </div>
         </div>
         <div className="max-h-80 overflow-auto my-4">
-          {items.map((item, index) => {
-            if (index > 0) {
+          <div>
+            {items.map((item, index) => {
+              if (index > 0) {
+                return (
+                  <RoundTrackerItem key={index} item={item}></RoundTrackerItem>
+                );
+              }
+            })}
+          </div>
+          <div className="flex mx-5 h-6 border-2 border-black border-b-4 rounded-xl bg-red-900 items-center justify-center">
+            {" "}
+            === next round ==={" "}
+          </div>
+          <div>
+            {nextItems.map((item, index) => {
               return (
                 <RoundTrackerItem key={index} item={item}></RoundTrackerItem>
               );
-            }
-          })}
+            })}
+          </div>
         </div>
       </div>
     </div>
