@@ -29,7 +29,7 @@ const RoundTracker = ({ elements, ...props }) => {
   const handleReset = () => {
     // set to default state
     setItems(
-      items.sort((a, b) => {
+      nextItems.sort((a, b) => {
         if (a.id > b.id) return 1;
         if (a.id < b.id) return -1;
         return 0;
