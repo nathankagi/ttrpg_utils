@@ -5,15 +5,6 @@ import { useEffect, useState } from "react";
 import { FaBars, FaCog, FaTools } from "react-icons/fa"; // font awesome 5
 
 const Tracker = () => {
-  return (
-    <div className="flex flex-row p-4">
-      <RoundTracker></RoundTracker>
-      <ItemList></ItemList>
-    </div>
-  );
-};
-
-const RoundTracker = ({ ...props }) => {
   const temp_items = [
     { id: 1, name: "item1" },
     { id: 2, name: "item2" },
@@ -21,8 +12,18 @@ const RoundTracker = ({ ...props }) => {
     { id: 4, name: "item4" },
     { id: 5, name: "item5" },
   ];
+  return (
+    <div className="flex flex-row p-4">
+      <RoundTracker elements={temp_items}></RoundTracker>
+      <ItemList></ItemList>
+    </div>
+  );
+};
+
+const RoundTracker = ({ elements, ...props }) => {
   const [active, setActive] = useState({ id: 0, name: "active" });
-  const [items, setItems] = useState(temp_items);
+  const [items, setItems] = useState(elements);
+  const [turns, setTurns] = useState(0);
 
   const handleReset = () => {
     // set to default state
@@ -34,6 +35,7 @@ const RoundTracker = ({ ...props }) => {
       })
     );
     setActive(items.at(0));
+    setTurns(0);
   };
 
   const arrayRotate = (arr, reverse) => {
@@ -44,20 +46,29 @@ const RoundTracker = ({ ...props }) => {
 
   useEffect(() => {
     setActive(items.at(0));
-  }, []);
+  }, [elements]);
 
   const handleNextItem = () => {
     // change state of round tracker
     setItems(arrayRotate(items, false));
     setActive(items.at(0));
+    setTurns(turns + 1);
   };
 
   return (
     <div className="w-2/5">
       <div className="mx-4 font-bold text-xl">TRACKER</div>
       <div className="border-black border-2 border-b-4 rounded-lg m-2">
-        <div className="rounded-md p-2 m-5 h-24 bg-white border-2 border-b-4 border-black text-black">
-          {active ? active.name : "None"}
+        <div className="flex flex-row">
+          <div className="rounded-md flex-grow p-2 m-5 h-24 bg-white border-2 border-b-4 border-black text-black">
+            {active ? active.name : "None"}
+          </div>
+          <div className="rounded-md w-24 p-2 ml-0 m-5 h-24 bg-white border-2 border-b-4 border-black text-black justify-center text-center items-center">
+            <div>ROUND</div>
+            <div className="w-16 h-16 text-lg justify-center text-center items-center">
+              {Math.floor(turns / items.length)}
+            </div>
+          </div>
         </div>
         <div className="flex flex-row h-12 rounded-lg m-5 items-center justify-center bg-gray-200">
           <div
