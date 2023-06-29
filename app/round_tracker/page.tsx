@@ -1,66 +1,58 @@
 "use client";
 
-import { handleClientScriptLoad } from "next/script";
 import { useEffect, useState } from "react";
 import { FaBars, FaCog, FaTools } from "react-icons/fa"; // font awesome 5
 
+const sortByValue = (a: { value: number }, b: { value: number }) => {
+  if (a.value > b.value) return -1;
+  if (a.value < b.value) return 1;
+  return 0;
+};
+
 const Tracker = () => {
-  const temp_items = [
-    { id: 1, name: "item1" },
-    { id: 2, name: "item2" },
-    { id: 3, name: "item3" },
-    { id: 4, name: "item4" },
-    { id: 5, name: "item5" },
-  ];
+  const [elements, setElements] = useState([]);
+
+  const updateHandler = function updateHandler(items) {
+    setElements(items);
+  };
+
+  useEffect(() => {}, [elements]);
+
   return (
     <div className="flex flex-row p-4">
-      <RoundTracker elements={temp_items}></RoundTracker>
-      <ItemList></ItemList>
+      <RoundTracker elements={elements}></RoundTracker>
+      <ItemList updateHandler={updateHandler}></ItemList>
     </div>
   );
 };
 
 const RoundTracker = ({ elements, ...props }) => {
-  const [active, setActive] = useState({ id: 0, name: "active" });
-  const [items, setItems] = useState(elements);
-  const [nextItems, setNextItems] = useState(elements);
+  const [active, setActive] = useState({
+    id: 0,
+    name: "... loading",
+    value: 0,
+  });
+  const defaultState = elements;
+  const [items, setItems] = useState([]);
+  const [nextItems, setNextItems] = useState([]);
   const [rounds, setRounds] = useState(0);
 
-  const handleReset = () => {
-    // set to default state
-    setItems(
-      nextItems.sort((a, b) => {
-        if (a.id > b.id) return 1;
-        if (a.id < b.id) return -1;
-        return 0;
-      })
-    );
-    setActive(items.at(0));
-    setRounds(0);
-  };
-
-  const arrayRotate = (arr, reverse) => {
+  const arrayRotate = (arr: any[], reverse: boolean) => {
     if (reverse) arr.unshift(arr.pop());
     else arr.push(arr.shift());
     return arr;
   };
 
-  useEffect(() => {
-    setActive(items.at(0));
-    setRounds(0);
-  }, []);
-
-  useEffect(() => {
-    setActive(items.at(0));
-    if (items.length === 0) {
-      setItems(nextItems);
-      setRounds(rounds + 1);
+  const handleReset = () => {
+    if (defaultState) {
+      setItems(defaultState.sort(sortByValue));
+      setNextItems(defaultState);
+      setActive(items.at(0));
+      setRounds(0);
     }
-  }, [items]);
+  };
 
   const handleNextItem = () => {
-    // change state of round tracker
-    // setItems(arrayRotate(items, false));
     setItems(items.slice(1));
   };
 
@@ -70,9 +62,24 @@ const RoundTracker = ({ elements, ...props }) => {
     setItems(temp_items);
   };
 
+  useEffect(() => {
+    handleReset();
+  }, [defaultState]);
+
+  useEffect(() => {
+    if (defaultState) {
+      setActive(items.at(0));
+      if (items && items.length === 0) {
+        setItems(nextItems);
+        setNextItems(defaultState);
+        setRounds(rounds + 1);
+      }
+    }
+  }, [items]);
+
   return (
     <div className="w-2/5">
-      <div className="mx-4 font-bold text-xl">TRACKER</div>
+      <div className="mx-4 font-bold text-xl pl-4">TRACKER</div>
       <div className="border-black border-2 border-b-4 rounded-lg m-2">
         <div className="flex flex-row">
           <div className="rounded-md flex-grow p-2 m-5 h-24 bg-white border-2 border-b-4 border-black text-black">
@@ -108,24 +115,35 @@ const RoundTracker = ({ elements, ...props }) => {
         </div>
         <div className="max-h-80 overflow-auto my-4">
           <div>
-            {items.map((item, index) => {
-              if (index > 0) {
-                return (
-                  <RoundTrackerItem key={index} item={item}></RoundTrackerItem>
-                );
-              }
-            })}
+            {defaultState &&
+              items &&
+              items.map((item, index) => {
+                if (index > 0) {
+                  return (
+                    defaultState && (
+                      <RoundTrackerItem
+                        key={index}
+                        item={item}
+                      ></RoundTrackerItem>
+                    )
+                  );
+                }
+              })}
           </div>
-          <div className="flex mx-5 h-6 border-2 border-black border-b-4 rounded-xl bg-red-900 items-center justify-center">
-            {" "}
-            === next round ==={" "}
-          </div>
+          <RoundBar></RoundBar>
           <div>
-            {nextItems.map((item, index) => {
-              return (
-                <RoundTrackerItem key={index} item={item}></RoundTrackerItem>
-              );
-            })}
+            {defaultState &&
+              nextItems &&
+              nextItems.map((item, index) => {
+                return (
+                  defaultState && (
+                    <RoundTrackerItem
+                      key={index}
+                      item={item}
+                    ></RoundTrackerItem>
+                  )
+                );
+              })}
           </div>
         </div>
       </div>
@@ -136,27 +154,91 @@ const RoundTracker = ({ elements, ...props }) => {
 const RoundTrackerItem = ({ item, ...props }) => {
   return (
     <div className="flex align-middle rounded-md p-2 border-b-4 m-5 h-16 bg-white border-2 border-black text-black hover:bg-gray-200 transition-all">
-      {item.name}
+      <div className="flex flex-row">
+        <div className="m-2">{item.name}</div>
+        <div className="m-2">{item.value}</div>
+      </div>
     </div>
   );
 };
 
-const ItemList = () => {
+const ListItem = ({ item, ...props }) => {
+  return (
+    <div className="flex align-middle rounded-md p-2 border-b-4 m-5 h-16 bg-white border-2 border-black text-black hover:bg-gray-200 transition-all">
+      <div className="flex flex-row">
+        <input className="m-2 w-24" defaultValue={item.name}></input>
+        <input className="m-2 w-16" defaultValue={item.value}></input>
+      </div>
+    </div>
+  );
+};
+
+const ItemList = ({ updateHandler, ...props }) => {
+  const defaultItem = {
+    id: null,
+    name: "Name",
+    value: 0,
+    other: 0,
+  };
+  const [listItems, setListItems] = useState([]);
+  const [itemKey, setItemKey] = useState(0);
+
+  const handleCreate = () => {
+    let temp_item = defaultItem;
+    temp_item.id = itemKey;
+    setItemKey(itemKey + 1);
+    listItems.push(temp_item);
+  };
+
+  const handleUpdate = () => {
+    updateHandler([...listItems]);
+  };
+
+  const handleClear = () => {
+    setListItems([]);
+    setItemKey(0);
+  };
+
+  useEffect(() => {}, [listItems]);
+
   return (
     <div className="w-2/5">
-      <div className="mx-4 font-bold text-xl">ITEMS</div>
+      <div className="mx-4 font-bold text-xl pl-4">ITEMS</div>
       <div className="border-black border-2 border-b-4 rounded-lg m-2">
-        <div className="rounded-md p-2 m-5 h-24 bg-white border-2 border-b-4 border-black text-black">
-          MENU
+        <div className="flex flex-row flex-auto rounded-md p-2 m-5 h-20 justify-center items-center bg-white border-2 border-b-4 border-black text-black">
+          <div
+            className="flex h-12 w-24 bg-white border-2 border-b-4 border-black rounded-lg mx-4 hover:bg-gray-400 items-center justify-center"
+            onClick={handleCreate}
+          >
+            CREATE
+          </div>
+          <div
+            className="flex h-12 w-24 bg-white border-2 border-b-4 border-black rounded-lg mx-4 hover:bg-gray-400 items-center justify-center"
+            onClick={handleUpdate}
+          >
+            UPDATE
+          </div>
+          <div
+            className="flex h-12 w-24 bg-white border-2 border-b-4 border-black rounded-lg mx-4 hover:bg-gray-400 items-center justify-center"
+            onClick={handleClear}
+          >
+            CLEAR
+          </div>
         </div>
-        <div className="rounded-md py-2 m-5 h-96 bg-white border-2 border-b-4 border-black text-black">
-          <div className="bg-gray-100">item1</div>
-          <div className="bg-white">item2</div>
-          <div className="bg-gray-100">item3</div>
-          <div>item4</div>
+        <div className="max-h-96 overflow-auto mb-5">
+          {listItems &&
+            listItems.map((item) => {
+              return <ListItem item={item} key={item.id}></ListItem>;
+            })}
         </div>
       </div>
     </div>
+  );
+};
+
+const RoundBar = () => {
+  return (
+    <div className="flex mx-5 h-6 border-2 border-black border-b-4 rounded-md bg-gray-400 items-center justify-center"></div>
   );
 };
 
