@@ -1,5 +1,6 @@
 "use client";
 
+import { it } from "node:test";
 import { useEffect, useState } from "react";
 import { FaBars, FaCog, FaTools } from "react-icons/fa"; // font awesome 5
 
@@ -162,9 +163,24 @@ const RoundTrackerItem = ({ item, ...props }) => {
   );
 };
 
-const ListItem = ({ item, ...props }) => {
+const ListItem = ({ item, selectHandler, ...props }) => {
+  const [selected, setSelected] = useState(false);
+
+  const handleSelected = () => {
+    setSelected(!selected);
+  };
+
+  useEffect(() => {
+    selectHandler(item, selected);
+  }, [selected]);
+
   return (
-    <div className="flex align-middle rounded-md p-2 border-b-4 m-5 h-16 bg-white border-2 border-black text-black hover:bg-gray-200 transition-all">
+    <div
+      onClick={handleSelected}
+      className={`flex bg-${
+        selected ? "gray-400" : "white"
+      } align-middle rounded-md p-2 border-b-4 m-5 h-16 border-2 border-black text-black hover:bg-gray-200 transition-all`}
+    >
       <div className="flex flex-row">
         <input className="m-2 w-24" defaultValue={item.name}></input>
         <input className="m-2 w-16" defaultValue={item.value}></input>
@@ -180,6 +196,8 @@ const ItemList = ({ updateHandler, ...props }) => {
     value: 0,
     other: 0,
   };
+
+  const [pendingItems, setPendingItems] = useState([]);
   const [listItems, setListItems] = useState([]);
   const [itemKey, setItemKey] = useState(0);
 
@@ -191,12 +209,26 @@ const ItemList = ({ updateHandler, ...props }) => {
   };
 
   const handleUpdate = () => {
-    updateHandler([...listItems]);
+    updateHandler([...pendingItems]);
   };
 
   const handleClear = () => {
     setListItems([]);
     setItemKey(0);
+  };
+
+  const handlePendingUpdate = function handlePendingUpdate(item, state) {
+    if (state) {
+      pendingItems.push(item);
+    }
+
+    if (!state && pendingItems.length > 0) {
+      pendingItems.forEach((each, index) => {
+        if (item.id === each.id) {
+          pendingItems.splice(index, 1);
+        }
+      });
+    }
   };
 
   useEffect(() => {}, [listItems]);
@@ -228,7 +260,13 @@ const ItemList = ({ updateHandler, ...props }) => {
         <div className="max-h-96 overflow-auto mb-5">
           {listItems &&
             listItems.map((item) => {
-              return <ListItem item={item} key={item.id}></ListItem>;
+              return (
+                <ListItem
+                  item={item}
+                  selectHandler={handlePendingUpdate}
+                  key={item.id}
+                ></ListItem>
+              );
             })}
         </div>
       </div>
