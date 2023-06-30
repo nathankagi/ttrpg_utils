@@ -4,10 +4,8 @@ import { it } from "node:test";
 import { useEffect, useState } from "react";
 import { FaBars, FaCog, FaTools } from "react-icons/fa"; // font awesome 5
 
-const sortByValue = (a: { value: number }, b: { value: number }) => {
-  if (a.value > b.value) return -1;
-  if (a.value < b.value) return 1;
-  return 0;
+const sortByValue = (a, b) => {
+  return b.value - a.value;
 };
 
 const Tracker = () => {
@@ -33,7 +31,7 @@ const RoundTracker = ({ elements, ...props }) => {
     name: "... loading",
     value: 0,
   });
-  const defaultState = elements;
+  const defaultState = elements.sort(sortByValue);
   const [items, setItems] = useState([]);
   const [nextItems, setNextItems] = useState([]);
   const [rounds, setRounds] = useState(0);
@@ -165,13 +163,14 @@ const RoundTrackerItem = ({ item, ...props }) => {
 
 const ListItem = ({ item, selectHandler, ...props }) => {
   const [selected, setSelected] = useState(false);
+  var component = item;
 
   const handleSelected = () => {
     setSelected(!selected);
   };
 
   useEffect(() => {
-    selectHandler(item, selected);
+    selectHandler(component, selected);
   }, [selected]);
 
   return (
@@ -182,8 +181,20 @@ const ListItem = ({ item, selectHandler, ...props }) => {
       } align-middle rounded-md p-2 border-b-4 m-5 h-16 border-2 border-black text-black hover:bg-gray-200 transition-all`}
     >
       <div className="flex flex-row">
-        <input className="m-2 w-24" defaultValue={item.name}></input>
-        <input className="m-2 w-16" defaultValue={item.value}></input>
+        <input
+          className="m-2 w-24"
+          defaultValue={item.name}
+          onChange={(e) => {
+            component.name = e.target.value;
+          }}
+        ></input>
+        <input
+          className="m-2 w-16"
+          defaultValue={item.value}
+          onChange={(e) => {
+            component.value = e.target.value;
+          }}
+        ></input>
       </div>
     </div>
   );
@@ -214,6 +225,7 @@ const ItemList = ({ updateHandler, ...props }) => {
 
   const handleClear = () => {
     setListItems([]);
+    setPendingItems([]);
     setItemKey(0);
   };
 
