@@ -1,8 +1,7 @@
 "use client";
 
-import { it } from "node:test";
 import { useEffect, useState } from "react";
-import { FaBars, FaCog, FaTools } from "react-icons/fa"; // font awesome 5
+import { FaBars } from "react-icons/fa"; // font awesome 5
 
 const sortByValue = (a, b) => {
   return b.value - a.value;
@@ -167,6 +166,7 @@ const ListItem = ({ item, selectHandler, ...props }) => {
 
   const handleSelected = () => {
     setSelected(!selected);
+    component.selected = !selected;
   };
 
   useEffect(() => {
@@ -176,9 +176,9 @@ const ListItem = ({ item, selectHandler, ...props }) => {
   return (
     <div
       onClick={handleSelected}
-      className={`flex bg-${
-        selected ? "gray-400" : "white"
-      } align-middle rounded-md p-2 border-b-4 m-5 h-16 border-2 border-black text-black hover:bg-gray-200 transition-all`}
+      className={`flex align-middle bg-${
+        component.selected ? "gray-400" : "white"
+      } rounded-md p-2 border-b-4 m-5 h-16 border-2 border-black text-black hover:bg-gray-200 transition-all`}
     >
       <div className="flex flex-row">
         <input
@@ -206,6 +206,7 @@ const ItemList = ({ updateHandler, ...props }) => {
     name: "Name",
     value: 0,
     other: 0,
+    selected: false,
   };
 
   const [pendingItems, setPendingItems] = useState([]);
@@ -221,6 +222,10 @@ const ItemList = ({ updateHandler, ...props }) => {
 
   const handleUpdate = () => {
     updateHandler([...pendingItems]);
+    setPendingItems([]);
+    listItems.forEach((item) => {
+      item.selected = false;
+    });
   };
 
   const handleClear = () => {
