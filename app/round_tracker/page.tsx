@@ -105,7 +105,14 @@ const RoundTracker = ({ elements, ...props }) => {
           </div>
           <div className="flex-grow"></div>
           <div
-            onClick={handleReset}
+            onClick={() => {
+              const confirmBox = window.confirm(
+                "Are you sure? Resetting will restore the tracker to default state."
+              );
+              if (confirmBox === true) {
+                handleReset();
+              }
+            }}
             className="m-2 w-20 h-8 text-lg border-transparent rounded-lg border-2 flex items-center justify-center bg-white hover:border-black transition-all duration-300 ease-in-out"
           >
             RESET
@@ -269,7 +276,14 @@ const ItemList = ({ updateHandler, ...props }) => {
           </div>
           <div
             className="flex h-12 w-24 bg-white border-2 border-b-4 border-black rounded-lg mx-4 hover:bg-gray-400 items-center justify-center"
-            onClick={handleClear}
+            onClick={() => {
+              const confirmBox = window.confirm(
+                "Are you sure? Clearing will remove all items."
+              );
+              if (confirmBox === true) {
+                handleClear();
+              }
+            }}
           >
             CLEAR
           </div>
