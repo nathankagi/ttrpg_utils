@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { FaBars } from "react-icons/fa"; // font awesome 5
 
-const sortByValue = (a, b) => {
+const sortByValue = (a: { value: number }, b: { value: number }) => {
   return b.value - a.value;
 };
 
@@ -80,8 +80,10 @@ const RoundTracker = ({ elements, ...props }) => {
       <div className="mx-4 font-bold text-xl pl-4">TRACKER</div>
       <div className="border-black border-2 border-b-4 rounded-lg m-2">
         <div className="flex flex-row">
-          <div className="rounded-md flex-grow p-2 m-5 h-24 bg-white border-2 border-b-4 border-black text-black">
-            {active ? active.name : "None"}
+          <div className="flex rounded-md flex-grow p-2 m-5 h-24 bg-white border-2 border-b-4 border-black text-black items-center">
+            <div className="w-5"></div>
+            <div className="w-24 text-xl">{active ? active.name : "None"}</div>
+            <div className="w-20 text-xl">{active ? active.value : 0}</div>
           </div>
           <div className="rounded-md w-24 p-2 ml-0 m-5 h-24 bg-white border-2 border-b-4 border-black text-black justify-center text-center items-center">
             <div>ROUND</div>
@@ -158,10 +160,14 @@ const RoundTracker = ({ elements, ...props }) => {
 
 const RoundTrackerItem = ({ item, ...props }) => {
   return (
-    <div className="flex align-middle rounded-md p-2 border-b-4 m-5 h-16 bg-white border-2 border-black text-black hover:bg-gray-200 transition-all">
-      <div className="flex flex-row">
-        <div className="m-2">{item.name}</div>
-        <div className="m-2">{item.value}</div>
+    <div className="flex align-middle bordered-box hover:bg-gray-200 transition-all">
+      <div className="flex flex-row w-96">
+        <div className="w-20 m-2">{item.name}</div>
+        <div className="w-20 m-2">{item.value}</div>
+        <div className="flex flex-grow"></div>
+        <div className="flex justify-center items-center">
+          <FaBars></FaBars>
+        </div>
       </div>
     </div>
   );
@@ -185,7 +191,7 @@ const ListItem = ({ item, selectHandler, ...props }) => {
       onClick={handleSelected}
       className={`flex align-middle bg-${
         component.selected ? "gray-400" : "white"
-      } rounded-md p-2 border-b-4 m-5 h-16 border-2 border-black text-black hover:bg-gray-200 transition-all`}
+      } h-16 bordered-box hover:bg-gray-200 transition-all`}
     >
       <div className="flex flex-row">
         <input
@@ -260,22 +266,22 @@ const ItemList = ({ updateHandler, ...props }) => {
   return (
     <div className="w-2/5">
       <div className="mx-4 font-bold text-xl pl-4">ITEMS</div>
-      <div className="border-black border-2 border-b-4 rounded-lg m-2">
-        <div className="flex flex-row flex-auto rounded-md p-2 m-5 h-20 justify-center items-center bg-white border-2 border-b-4 border-black text-black">
+      <div className="bordered-box m-2">
+        <div className="flex flex-row flex-auto h-20 justify-center items-center bordered-box">
           <div
-            className="flex h-12 w-24 bg-white border-2 border-b-4 border-black rounded-lg mx-4 hover:bg-gray-400 items-center justify-center"
+            className="flex h-12 w-24 bordered-box mx-4 hover:bg-gray-400 items-center justify-center"
             onClick={handleCreate}
           >
             CREATE
           </div>
           <div
-            className="flex h-12 w-24 bg-white border-2 border-b-4 border-black rounded-lg mx-4 hover:bg-gray-400 items-center justify-center"
+            className="flex h-12 w-24 bordered-box mx-4 hover:bg-gray-400 items-center justify-center"
             onClick={handleUpdate}
           >
             UPDATE
           </div>
           <div
-            className="flex h-12 w-24 bg-white border-2 border-b-4 border-black rounded-lg mx-4 hover:bg-gray-400 items-center justify-center"
+            className="flex h-12 w-24 bordered-box mx-4 hover:bg-gray-400 items-center justify-center"
             onClick={() => {
               const confirmBox = window.confirm(
                 "Are you sure? Clearing will remove all items."
@@ -307,7 +313,7 @@ const ItemList = ({ updateHandler, ...props }) => {
 
 const RoundBar = () => {
   return (
-    <div className="flex mx-5 h-6 border-2 border-black border-b-4 rounded-md bg-gray-400 items-center justify-center"></div>
+    <div className="flex mx-5 h-6 bordered-box bg-gray-400 items-center justify-center"></div>
   );
 };
 
